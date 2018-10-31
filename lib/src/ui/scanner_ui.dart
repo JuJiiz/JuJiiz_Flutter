@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/src/ui/dialog/event_approve_dialog.dart';
+import 'package:flutter_app/src/widgets/event_approve_dialog.dart';
 
 class ScanScreen extends StatefulWidget {
+  static String tag = 'ScanScreen';
+
   @override
   _ScanState createState() => new _ScanState();
 }
