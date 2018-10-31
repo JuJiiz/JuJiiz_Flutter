@@ -1,13 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' show get;
-import 'models/image_model.dart';
 import 'dart:convert';
-import 'widgets/image_list.dart';
 
-class App extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return AppState();
+import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models/image_model.dart';
+import 'package:flutter_app/src/widgets/image_list.dart';
+import 'package:http/http.dart' show get    return AppState();
   }
 }
 
