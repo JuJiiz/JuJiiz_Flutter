@@ -20,7 +20,7 @@ class EventApproveDialog extends StatelessWidget {
             new FlatButton(
               child: new Text(
                 "Cancel",
-                textScaleFactor: 2.0,
+                textScaleFactor: 1.0,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -29,14 +29,14 @@ class EventApproveDialog extends StatelessWidget {
             new FlatButton(
               child: new Text(
                 "Add point",
-                textScaleFactor: 2.0,
+                textScaleFactor: 1.0,
               ),
               onPressed: null,
             ),
             new FlatButton(
               child: new Text(
                 "Approve",
-                textScaleFactor: 2.0,
+                textScaleFactor: 1.0,
               ),
               onPressed: null,
             ),

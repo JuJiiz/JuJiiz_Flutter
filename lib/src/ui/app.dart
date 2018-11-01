@@ -3,8 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/image_model.dart';
 import 'package:flutter_app/src/widgets/image_list.dart';
-import 'package:http/http.dart' show get    return AppState();
-  }
+import 'package:http/http.dart' show get;
+
+class App extends StatefulWidget {
+  static String tag = 'App';
+
+  @override
+  AppState createState() => new AppState();
 }
 
 class AppState extends State<App> {
