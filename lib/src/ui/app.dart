@@ -7,8 +7,7 @@ import 'package:http/http.dart' show get;
 
 class App extends StatefulWidget {
   static String tag = 'App';
-
-  @override
+  
   AppState createState() => new AppState();
 }
 
@@ -25,7 +24,6 @@ class AppState extends State<App> {
     });
   }
 
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,

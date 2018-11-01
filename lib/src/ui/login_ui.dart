@@ -5,7 +5,6 @@ import 'package:flutter_app/src/ui/scanner_ui.dart';
 class Login extends StatefulWidget {
   static String tag = 'Login';
 
-  @override
   _LoginState createState() => new _LoginState();
 }
 
@@ -17,7 +16,6 @@ class _LoginState extends State<Login> {
   bool _validateLogin = false;
   String _email, _password;
 
-  @override
   initState() {
     super.initState();
   }
@@ -56,7 +54,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-  @override
   Widget build(BuildContext context) {
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,

@@ -9,14 +9,12 @@ import 'package:http/http.dart' show get;
 class ScanScreen extends StatefulWidget {
   static String tag = 'ScanScreen';
 
-  @override
   _ScanState createState() => new _ScanState();
 }
 
 class _ScanState extends State<ScanScreen> {
   String barcode = "";
 
-  @override
   initState() {
     super.initState();
   }
@@ -27,7 +25,6 @@ class _ScanState extends State<ScanScreen> {
     print('res: ${res.body}');
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(

@@ -4,7 +4,6 @@ import 'package:flutter_app/src/widgets/register_approval_dialog.dart';
 class Register extends StatefulWidget {
   static String tag = 'Register';
 
-  @override
   _RegisterState createState() => new _RegisterState();
 }
 
@@ -16,7 +15,6 @@ class _RegisterState extends State<Register> {
   bool _validate = false;
   String _email, _password, _conpass;
 
-  @override
   initState() {
     super.initState();
   }
@@ -69,7 +67,6 @@ class _RegisterState extends State<Register> {
     }
   }
 
-  @override
   Widget build(BuildContext context) {
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
