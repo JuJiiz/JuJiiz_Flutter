@@ -4,6 +4,7 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/src/widgets/event_approve_dialog.dart';
+import 'package:http/http.dart' show get;
 
 class ScanScreen extends StatefulWidget {
   static String tag = 'ScanScreen';
@@ -18,6 +19,12 @@ class _ScanState extends State<ScanScreen> {
   @override
   initState() {
     super.initState();
+  }
+
+  void fetchEvent() async {
+    var res = await get(
+        'https://us-central1-young-happy.cloudfunctions.net/eventGet/getEvent');
+    print('res: ${res.body}');
   }
 
   @override
@@ -60,6 +67,7 @@ class _ScanState extends State<ScanScreen> {
         barcode = user[1];
       }
 
+      fetchEvent();
       showDialog(
           context: context,
           builder: (BuildContext context) {
