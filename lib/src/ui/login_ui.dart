@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/mixins/validation_mixins.dart';
 import 'package:flutter_app/src/ui/home_ui.dart';
 import 'package:flutter_app/src/ui/register_ui.dart';
 
@@ -8,7 +9,7 @@ class Login extends StatefulWidget {
   _LoginState createState() => new _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with ValidationMixin {
   String dummyEmail = 'ju.jiiz.1579@gmail.com';
   String dummyPassword = 'JuJiizTest';
 
@@ -18,25 +19,6 @@ class _LoginState extends State<Login> {
 
   initState() {
     super.initState();
-  }
-
-  String validateEmail(String value) {
-    _email = value;
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return 'Enter Valid Email';
-    else
-      return null;
-  }
-
-  String validatePassword(String value) {
-    _password = value;
-    if (value.length < 6)
-      return 'Password must be more than 6 charater';
-    else
-      return null;
   }
 
   void _sendToServer() {
@@ -86,7 +68,6 @@ class _LoginState extends State<Login> {
     final loginButton = OutlineButton(
         child: Text('Log In', style: TextStyle(color: Colors.lightBlueAccent)),
         borderSide: BorderSide(color: Colors.lightBlueAccent),
-        //color: Colors.lightBlueAccent,
         onPressed: _sendToServer,
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30.0),
