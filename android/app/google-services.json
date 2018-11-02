@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "802390442854",
+    "firebase_url": "https://ju-flutter.firebaseio.com",
+    "project_id": "ju-flutter",
+    "storage_bucket": "ju-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802390442854:android:e247a88f5e4c9c65",
+        "android_client_info": {
+          "package_name": "com.example.jujiizflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802390442854-turdpmdmklnafh8jmj8ss5apr75dqc5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRKJelY0uZ6fVzm-f0lQWux1pbSAomShA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802390442854:android:e9dc8c23b3fd7653",
+        "android_client_info": {
+          "package_name": "com.jujiiz.flutterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802390442854-0r4a5gg782m7aoqe6s4j47rkbdbfutji.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jujiiz.flutterapp",
+            "certificate_hash": "9cf522e2aac020d54fba765d8ab10e36547d12dd"
+          }
+        },
+        {
+          "client_id": "802390442854-turdpmdmklnafh8jmj8ss5apr75dqc5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRKJelY0uZ6fVzm-f0lQWux1pbSAomShA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802390442854-turdpmdmklnafh8jmj8ss5apr75dqc5b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
