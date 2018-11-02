@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models/event_model.dart';
 
 class EventApproveDialog extends StatelessWidget {
   final String uid;
+  final EventModel event;
 
-  EventApproveDialog(this.uid);
+  EventApproveDialog(this.uid, this.event);
 
   @override
   Widget build(BuildContext context) {
+    print('${event.key} : ${event.title} : ${event.point}');
     return AlertDialog(
       title: new Text('Information'),
-      content: new Text(uid),
+      content: new Text('$uid'),
       actions: <Widget>[
         Container(
-            //decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-            //padding: EdgeInsets.all(20.0),
-            //margin: EdgeInsets.all(20.0),
             child: Row(
           children: <Widget>[
             new FlatButton(

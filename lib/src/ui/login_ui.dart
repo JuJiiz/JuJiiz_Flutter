@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/ui/home_ui.dart';
 import 'package:flutter_app/src/ui/register_ui.dart';
-import 'package:flutter_app/src/ui/scanner_ui.dart';
 
 class Login extends StatefulWidget {
   static String tag = 'Login';
@@ -41,13 +41,11 @@ class _LoginState extends State<Login> {
 
   void _sendToServer() {
     if (_keyLogin.currentState.validate()) {
-      //If all data are correct then save data to out variables
       _keyLogin.currentState.save();
 
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => ScanScreen()));
+          MaterialPageRoute(builder: (BuildContext context) => Home()));
     } else {
-      //If all data are not valid then start auto validation.
       setState(() {
         _validateLogin = true;
       });
@@ -107,14 +105,20 @@ class _LoginState extends State<Login> {
     return new Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: new Container(
-          margin: new EdgeInsets.all(15.0),
-          child: new Form(
+        child: Container(
+          margin: EdgeInsets.all(15.0),
+          child: Form(
             key: _keyLogin,
             autovalidate: _validateLogin,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: 48.0),
+                Text(
+                  'Login',
+                  textScaleFactor: 1.5,
+                ),
+                SizedBox(height: 24.0),
                 email,
                 SizedBox(height: 8.0),
                 password,

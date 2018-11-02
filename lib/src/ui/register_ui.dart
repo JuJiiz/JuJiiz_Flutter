@@ -49,15 +49,15 @@ class _RegisterState extends State<Register> {
   }
 
   void _sendToServer() {
-    print('${_key.currentState.validate()}');
     if (_key.currentState.validate()) {
       //If all data are correct then save data to out variables
       _key.currentState.save();
 
       showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (BuildContext context) {
-            return RegisterApproveDialog(_email);
+            return RegisterApproveDialog(_email, _password, _conpass);
           });
     } else {
       //If all data are not valid then start auto validation.
@@ -122,25 +122,29 @@ class _RegisterState extends State<Register> {
           borderRadius: new BorderRadius.circular(30.0),
         ));
 
-    return new Scaffold(
-      body: new SingleChildScrollView(
-        child: new Container(
-          margin: new EdgeInsets.all(15.0),
-          child: new Form(
-            key: _key,
-            autovalidate: _validate,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 48.0),
-                email,
-                SizedBox(height: 8.0),
-                password,
-                SizedBox(height: 8.0),
-                confirmPassword,
-                SizedBox(height: 24.0),
-                registerButton,
-              ],
-            ),
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.all(15.0),
+        child: Form(
+          key: _key,
+          autovalidate: _validate,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 48.0),
+              Text(
+                'Register',
+                textScaleFactor: 1.5,
+              ),
+              SizedBox(height: 24.0),
+              email,
+              SizedBox(height: 8.0),
+              password,
+              SizedBox(height: 8.0),
+              confirmPassword,
+              SizedBox(height: 24.0),
+              registerButton,
+            ],
           ),
         ),
       ),

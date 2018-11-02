@@ -1,13 +1,13 @@
 class EventModel {
-  String key;
-  String title;
-  String point;
+  final String key, title, point;
 
-  EventModel(this.key, this.title, this.point);
+  EventModel({this.key, this.title, this.point});
 
-  EventModel.fromJson(Map<String, dynamic> parseJson) {
-    key = parseJson['key'];
-    title = parseJson['title'];
-    point = parseJson['point'];
+  factory EventModel.fromJson(Map<String, dynamic> json) {
+    return EventModel(
+      key: json['key'] as String,
+      title: json['title'] as String,
+      point: json['point'] as String,
+    );
   }
 }
