@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/auth.dart';
 import 'package:flutter_app/src/widgets/register_approval_dialog.dart';
 
 class Register extends StatefulWidget {
   static String tag = 'Register';
+  final BaseAuth auth;
+
+  Register({this.auth});
 
   _RegisterState createState() => new _RegisterState();
 }
@@ -57,7 +61,8 @@ class _RegisterState extends State<Register> {
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return RegisterApproveDialog(_email, _password, _conpass);
+            return RegisterApproveDialog(
+                widget.auth, _email, _password, _conpass);
           });
     } else {
       //If all data are not valid then start auto validation.

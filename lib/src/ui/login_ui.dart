@@ -1,10 +1,16 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/auth.dart';
 import 'package:flutter_app/src/mixins/validation_mixins.dart';
+import 'package:flutter_app/src/models/user_model.dart';
 import 'package:flutter_app/src/ui/home_ui.dart';
 import 'package:flutter_app/src/ui/register_ui.dart';
 
 class Login extends StatefulWidget {
   static String tag = 'Login';
+  final BaseAuth auth;
+
+  Login({this.auth});
 
   _LoginState createState() => new _LoginState();
 }
@@ -21,12 +27,41 @@ class _LoginState extends State<Login> with ValidationMixin {
     super.initState();
   }
 
-  void _sendToServer() {
+  void _sendToServer() async {
     if (_keyLogin.currentState.validate()) {
       _keyLogin.currentState.save();
 
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => Home()));
+      try {
+        String user =
+            await widget.auth.signInWithEmailAndPassword(_email, _password);
+        print('Firebase Auth User: $user');
+
+        if (user != null) {
+          DatabaseReference database = FirebaseDatabase.instance
+              .reference()
+              .child('users-admin')
+              .child(user);
+
+          database.once().then((DataSnapshot snapshot) {
+            if (snapshot.value != null) {
+              print('snapshot: ${snapshot.value}');
+
+              var userModel = new UserModel.from(snapshot.value);
+              if (userModel.allowed) {
+                print('allowed');
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Home()));
+              } else {
+                print('not allowed');
+              }
+            }
+          });
+        }
+      } catch (e) {
+        print('Firebase Auth Error: $e');
+      }
     } else {
       setState(() {
         _validateLogin = true;
