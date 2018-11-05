@@ -19,12 +19,18 @@ class _LoginState extends State<Login> with ValidationMixin {
   String dummyEmail = 'ju.jiiz.1579@gmail.com';
   String dummyPassword = 'JuJiizTest';
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _keyLogin = new GlobalKey<FormState>();
   bool _validateLogin = false;
   String _email, _password;
 
   initState() {
     super.initState();
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState
+        .showSnackBar(new SnackBar(content: new Text(value)));
   }
 
   void _sendToServer() async {
@@ -44,23 +50,26 @@ class _LoginState extends State<Login> with ValidationMixin {
 
           database.once().then((DataSnapshot snapshot) {
             if (snapshot.value != null) {
-              print('snapshot: ${snapshot.value}');
-
               var userModel = new UserModel.from(snapshot.value);
               if (userModel.allowed) {
                 print('allowed');
+                showInSnackBar('Login success');
+
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => Home()));
               } else {
+                widget.auth.signOut();
                 print('not allowed');
+                showInSnackBar('User not allowed');
               }
             }
           });
         }
       } catch (e) {
         print('Firebase Auth Error: $e');
+        showInSnackBar('Login fail');
       }
     } else {
       setState(() {
@@ -119,6 +128,7 @@ class _LoginState extends State<Login> with ValidationMixin {
     );
 
     return new Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       body: Center(
         child: Container(
