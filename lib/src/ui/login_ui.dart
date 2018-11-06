@@ -2,9 +2,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/auth.dart';
 import 'package:flutter_app/src/mixins/validation_mixins.dart';
-import 'package:flutter_app/src/models/user_model.dart';
+import 'package:flutter_app/src/models/staff_model.dart';
 import 'package:flutter_app/src/ui/home_ui.dart';
 import 'package:flutter_app/src/ui/register_ui.dart';
+import 'package:flutter_app/src/widgets/modal_progress_hud.dart';
 
 class Login extends StatefulWidget {
   static String tag = 'Login';
@@ -18,6 +19,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> with ValidationMixin {
   String dummyEmail = 'ju.jiiz.1579@gmail.com';
   String dummyPassword = 'JuJiizTest';
+  bool _isInAsyncCall = false;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _keyLogin = new GlobalKey<FormState>();
@@ -37,6 +39,10 @@ class _LoginState extends State<Login> with ValidationMixin {
     if (_keyLogin.currentState.validate()) {
       _keyLogin.currentState.save();
 
+      setState(() {
+        _isInAsyncCall = true;
+      });
+
       try {
         String user =
             await widget.auth.signInWithEmailAndPassword(_email, _password);
@@ -50,8 +56,8 @@ class _LoginState extends State<Login> with ValidationMixin {
 
           database.once().then((DataSnapshot snapshot) {
             if (snapshot.value != null) {
-              var userModel = new UserModel.from(snapshot.value);
-              if (userModel.allowed) {
+              var staffModel = new StaffModel.from(snapshot.value);
+              if (staffModel.allowed) {
                 print('allowed');
                 showInSnackBar('Login success');
 
@@ -64,15 +70,23 @@ class _LoginState extends State<Login> with ValidationMixin {
                 print('not allowed');
                 showInSnackBar('User not allowed');
               }
+
+              setState(() {
+                _isInAsyncCall = false;
+              });
             }
           });
         }
       } catch (e) {
+        setState(() {
+          _isInAsyncCall = false;
+        });
         print('Firebase Auth Error: $e');
         showInSnackBar('Login fail');
       }
     } else {
       setState(() {
+        _isInAsyncCall = false;
         _validateLogin = true;
       });
     }
@@ -127,31 +141,34 @@ class _LoginState extends State<Login> with ValidationMixin {
       },
     );
 
-    return new Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.all(15.0),
-          child: Form(
-            key: _keyLogin,
-            autovalidate: _validateLogin,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 48.0),
-                Text(
-                  'Login',
-                  textScaleFactor: 1.5,
-                ),
-                SizedBox(height: 24.0),
-                email,
-                SizedBox(height: 8.0),
-                password,
-                SizedBox(height: 24.0),
-                loginButton,
-                registerLabel,
-              ],
+    return ModalProgressHUD(
+      inAsyncCall: _isInAsyncCall,
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Container(
+            margin: EdgeInsets.all(15.0),
+            child: Form(
+              key: _keyLogin,
+              autovalidate: _validateLogin,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 48.0),
+                  Text(
+                    'Login',
+                    textScaleFactor: 1.5,
+                  ),
+                  SizedBox(height: 24.0),
+                  email,
+                  SizedBox(height: 8.0),
+                  password,
+                  SizedBox(height: 24.0),
+                  loginButton,
+                  registerLabel,
+                ],
+              ),
             ),
           ),
         ),

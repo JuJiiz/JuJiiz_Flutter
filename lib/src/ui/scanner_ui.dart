@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/src/models/event_model.dart';
+import 'package:flutter_app/src/models/user_model.dart';
 import 'package:flutter_app/src/widgets/event_approve_dialog.dart';
+import 'package:http/http.dart' show get;
 
 class ScanScreen extends StatefulWidget {
   static String tag = 'ScanScreen';
@@ -20,6 +23,21 @@ class _ScanState extends State<ScanScreen> {
 
   initState() {
     super.initState();
+  }
+
+  Future _getUserInformation(String uid) async {
+    var response = await get(
+        'https://us-central1-young-happy.cloudfunctions.net/userGet/getUser?uid=$uid');
+    var responseJson = json.decode(response.body);
+
+    var user = UserModel.fromJson(responseJson['data']);
+    if (user != null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return EventApproveDialog(user, this.eventModel);
+          });
+    }
   }
 
   Widget build(BuildContext context) {
@@ -42,7 +60,7 @@ class _ScanState extends State<ScanScreen> {
                     color: Colors.blue,
                     textColor: Colors.white,
                     splashColor: Colors.blueGrey,
-                    onPressed: scan,
+                    onPressed: _scan,
                     child: const Text('START CAMERA SCAN')),
               ),
             ],
@@ -50,16 +68,12 @@ class _ScanState extends State<ScanScreen> {
         ));
   }
 
-  Future scan() async {
+  Future _scan() async {
     try {
       String barcode = await BarcodeScanner.scan();
       var user = barcode.split('uid=');
       if (user.length == 2 && this.eventModel != null) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return EventApproveDialog(user[1], this.eventModel);
-            });
+        _getUserInformation(user[1]);
       }
 
       //setState(() => this.barcode = barcode);

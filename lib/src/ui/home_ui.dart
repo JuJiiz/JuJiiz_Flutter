@@ -16,10 +16,11 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  void fetchEvent() async {
+  void _fetchEvent() async {
     var response = await get(
         'https://us-central1-young-happy.cloudfunctions.net/eventGet/getEvent');
     var responseJson = json.decode(response.body);
+    print('data : ${responseJson['data']}');
     var events = (responseJson['data'] as List)
         .map((p) => EventModel.fromJson(p))
         .toList();
@@ -41,7 +42,7 @@ class _HomeState extends State<Home> {
             child: Text('Event approval'),
             textColor: Colors.black87,
             color: Colors.lightGreen,
-            onPressed: fetchEvent,
+            onPressed: _fetchEvent,
           ),
         ),
       ),
