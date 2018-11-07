@@ -51,7 +51,13 @@ class ModalProgressHUD extends StatelessWidget {
     if (inAsyncCall) {
       Widget layOutProgressIndicator;
       if (offset == null)
-        layOutProgressIndicator = Center(child: progressIndicator);
+        layOutProgressIndicator = Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Align(
+            child: progressIndicator,
+            alignment: Alignment.bottomRight,
+          ),
+        );
       else {
         layOutProgressIndicator = Positioned(
           child: progressIndicator,

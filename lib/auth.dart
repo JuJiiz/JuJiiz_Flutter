@@ -22,11 +22,17 @@ class Auth implements BaseAuth {
       String email, String password) async {
     FirebaseUser user = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
+    print('user: $user');
+
     return user.uid;
   }
 
   Future<String> currentUser() async {
+    //String uid;
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    /*if (user != null) {
+      uid = user.uid;
+    }*/
     return user.uid;
   }
 

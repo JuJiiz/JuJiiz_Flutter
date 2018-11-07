@@ -169,13 +169,14 @@ class _ProgressButtonState extends State<ProgressButton>
         AnimationController(duration: Duration(milliseconds: 300), vsync: this);
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller)
       ..addListener(() {
-        setState(() {
+        /*setState(() {
           _width = initialWidth - ((initialWidth - 48.0) * _animation.value);
-        });
+        });*/
       });
 
     setState(() {
       _state = 1;
+      _width = initialWidth - ((initialWidth - 48.0) * _animation.value);
       _color = Colors.lightGreen;
       _controller.forward();
     });
@@ -205,6 +206,13 @@ class _ProgressButtonState extends State<ProgressButton>
           database.set(staffModel.toJson()).whenComplete(() =>
               Navigator.of(context).pushNamedAndRemoveUntil(
                   Login.tag, (Route<dynamic> route) => false));
+        });
+      } else {
+        setState(() {
+          _width = 100.0;
+          _color = Colors.redAccent;
+          _state = 0;
+          _controller.forward();
         });
       }
     } catch (e) {
