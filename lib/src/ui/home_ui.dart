@@ -26,7 +26,6 @@ class _HomeState extends State<Home> {
     var response = await get(
         'https://us-central1-young-happy.cloudfunctions.net/eventGet/getEvent');
     var responseJson = json.decode(response.body);
-    print('data : ${responseJson['data']}');
     var events = (responseJson['data'] as List)
         .map((p) => EventModel.fromJson(p))
         .toList();
@@ -54,7 +53,7 @@ class _HomeState extends State<Home> {
             borderRadius: BorderRadius.circular(25.0),
             child: Container(
               width: double.infinity,
-              child: RaisedButton(
+              child: FlatButton(
                 padding: EdgeInsets.all(0.0),
                 child: Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -65,8 +64,6 @@ class _HomeState extends State<Home> {
                 ),
                 textColor: Colors.white,
                 onPressed: _fetchEvent,
-                elevation: 0.0,
-                color: Colors.transparent,
               ),
             ),
           ),

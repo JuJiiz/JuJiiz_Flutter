@@ -11,37 +11,6 @@ class RegisterApproveDialog extends StatelessWidget {
   RegisterApproveDialog(
       this.auth, this.email, this.password, this.confirmPassword);
 
-  /*void _firebaseRegister(BuildContext context) async {
-    try {
-      String user = await auth.createUserWithEmailAndPassword(
-          email, password);
-      print('Firebase Auth User: $user');
-
-      if (user != null) {
-        DatabaseReference database = FirebaseDatabase.instance
-            .reference()
-            .child('users-admin')
-            .child(user);
-
-        database.once().then((DataSnapshot snapshot) {
-          StaffModel staffModel = StaffModel(
-              uid: user,
-              email: email,
-              allowed: false,
-              register_date: DateTime
-                  .now()
-                  .millisecondsSinceEpoch);
-
-          database.set(staffModel.toJson()).whenComplete(() =>
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  Login.tag, (Route<dynamic> route) => false));
-        });
-      }
-    } catch (e) {
-      print('Firebase Auth Error: $e');
-    }
-  }*/
-
   Widget build(BuildContext context) {
     String mPass = password;
     String mConPass = confirmPassword;
@@ -53,8 +22,8 @@ class RegisterApproveDialog extends StatelessWidget {
       mConPass = mConPass.replaceRange(i, mConPass.length - 3, '*');
 
     return AlertDialog(
-      title: new Text('Confirmation'),
-      content: new Text('Email: $email\n'
+      title: Text('Confirmation'),
+      content: Text('Email: $email\n'
           'Password: $mPass\n'
           'Confirm password: $mConPass\n'
           '\n* Your request must be approve by admin before login'),
@@ -67,7 +36,7 @@ class RegisterApproveDialog extends StatelessWidget {
               email: email,
               password: password,
             )
-            /*new FlatButton(
+            /*FlatButton(
                   child: Text(
                     "OK",
                     textScaleFactor: 1.0,
@@ -91,7 +60,7 @@ class ProgressButton extends StatefulWidget {
   final String password;
 
   @override
-  _ProgressButtonState createState() => new _ProgressButtonState();
+  _ProgressButtonState createState() => _ProgressButtonState();
 }
 
 class _ProgressButtonState extends State<ProgressButton>
@@ -102,6 +71,7 @@ class _ProgressButtonState extends State<ProgressButton>
   GlobalKey _globalKey = GlobalKey();
   Color _color = Colors.lightGreen;
   double _width = 100.0;
+  String _buttonText = 'Submit';
 
   @override
   void dispose() {
@@ -119,7 +89,7 @@ class _ProgressButtonState extends State<ProgressButton>
         key: _globalKey,
         height: 48.0,
         width: _width,
-        child: new RaisedButton(
+        child: FlatButton(
           padding: EdgeInsets.all(0.0),
           child: setUpButtonChild(),
           onPressed: () {
@@ -129,8 +99,6 @@ class _ProgressButtonState extends State<ProgressButton>
               }
             });
           },
-          elevation: 0.0,
-          color: Colors.transparent,
         ),
       ),
     );
@@ -141,8 +109,8 @@ class _ProgressButtonState extends State<ProgressButton>
   ///
   setUpButtonChild() {
     if (_state == 0) {
-      return new Text(
-        "Submit",
+      return Text(
+        _buttonText,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
@@ -189,7 +157,7 @@ class _ProgressButtonState extends State<ProgressButton>
       if (user != null) {
         DatabaseReference database = FirebaseDatabase.instance
             .reference()
-            .child('users-admin')
+            .child('user-staff')
             .child(user);
 
         database.once().then((DataSnapshot snapshot) {
@@ -210,6 +178,7 @@ class _ProgressButtonState extends State<ProgressButton>
       } else {
         setState(() {
           _width = 100.0;
+          _buttonText = 'Re-Submit';
           _color = Colors.redAccent;
           _state = 0;
           _controller.forward();
@@ -218,6 +187,7 @@ class _ProgressButtonState extends State<ProgressButton>
     } catch (e) {
       setState(() {
         _width = 100.0;
+        _buttonText = 'Re-Submit';
         _color = Colors.redAccent;
         _state = 0;
         _controller.forward();

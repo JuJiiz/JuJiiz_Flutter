@@ -82,7 +82,7 @@ class _LoginState extends State<Login> with ValidationMixin {
 
   _checkAllowed(String user) {
     DatabaseReference database =
-        FirebaseDatabase.instance.reference().child('users-admin').child(user);
+        FirebaseDatabase.instance.reference().child('user-staff').child(user);
 
     database.once().then((DataSnapshot snapshot) {
       if (snapshot.value != null) {

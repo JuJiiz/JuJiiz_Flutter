@@ -14,6 +14,8 @@ class EventSelectDialog extends StatelessWidget {
       children: events.map((value) {
         return SimpleDialogOption(
           onPressed: () {
+            print('event key: ${value.key}');
+
             Navigator.push(
                 context,
                 new MaterialPageRoute(
